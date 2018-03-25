@@ -6,36 +6,39 @@ import java.lang.Math;
 
 public class Heap {
 	private static ArrayList <ProcessNode> processes= new ArrayList<ProcessNode>();
-
+	
 	
 	public static void main(String[] args)
 	{
 //		for(int i =0;i<20;i++) {
 //			processes.add(new ProcessNode("P"+i,generateUniqueID() ));
 //		}
-		processes.add(new ProcessNode("P1", 16));
-		processes.add(new ProcessNode("P2", 4));
-		processes.add(new ProcessNode("P3", 10));
-		processes.add(new ProcessNode("P4", 14));
-		processes.add(new ProcessNode("P5", 7));
+		processes.add(new ProcessNode("P1", 4));
+		processes.add(new ProcessNode("P2", 1));
+		processes.add(new ProcessNode("P3", 3));
+		processes.add(new ProcessNode("P4", 2));
+		processes.add(new ProcessNode("P5", 16));
 		processes.add(new ProcessNode("P6", 9));
-		processes.add(new ProcessNode("P7", 3));
-		processes.add(new ProcessNode("P8", 2));
+		processes.add(new ProcessNode("P7", 10));
+		processes.add(new ProcessNode("P8", 14));
 		processes.add(new ProcessNode("P9", 8));
-		processes.add(new ProcessNode("P10", 1));
+		processes.add(new ProcessNode("P10", 7));
 		
+		print();
+		buildMaxHeap();
+		print();
+		
+		
+	
+	}
+	
+	public static void print() {
 		for(ProcessNode p: processes) {
 			p.printData();
 		}
 		System.out.println("--------------");
-		maxHeapify(1);
-		
-		for(ProcessNode p: processes) {
-			p.printData();
-		}
 	
 	}
-	
 	
 	public static int generateUniqueID() {
 		boolean found = false;
@@ -60,6 +63,7 @@ public class Heap {
 	}
 	public static int getLeft(int i) {
 		return (int)Math.floor((2*i)+1);
+		
 			
 	}
 	public static int getRight(int i) {
@@ -74,15 +78,19 @@ public class Heap {
 		int l = getLeft(i); //left node
 		int r = getRight(i); //right node
 		int largest;
+		
 		//checks to make sure indexes aren't larger than the heap, then checks and swaps priority
-		if(l<=processes.size() && processes.get(l).getPriority()>processes.get(i).getPriority()) {
+		if(l<=processes.size()-1 && processes.get(l).getPriority()>processes.get(i).getPriority()) {
 			largest = l;
 		}
 		else largest = i;
-		if(r<=processes.size() && processes.get(r).getPriority()>processes.get(largest).getPriority()) {
+		
+		if(r<=processes.size()-1 && processes.get(r).getPriority()>processes.get(largest).getPriority()) {
+			
 			largest = r;
 		}
 		if(largest!=i) {
+			
 			exchange(i,largest);
 			maxHeapify(largest);
 		}
@@ -90,7 +98,20 @@ public class Heap {
 	
 	//swap that and the other in this ArrayList
 	public static void exchange(int that, int theOther) {
+
 		Collections.swap(processes, that, theOther);
+		
+	}
+	
+	
+	public static void buildMaxHeap() {
+		
+		
+		for(int i = (int)Math.floor((processes.size()-1)/2); i>=0;i--) {
+			maxHeapify(i);
+		}
+	
+		
 		
 	}
 	
