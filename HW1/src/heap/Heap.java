@@ -22,9 +22,10 @@ public class Heap {
 		processes.add(new ProcessNode("P5", 3));
 		processes.add(new ProcessNode("P6", 10));
 		processes.add(new ProcessNode("P7", 15));
+		
 		setHeapSize(processes.size());
 		print();
-		heapIncreaseKey(4,300);
+		maxHeapInsert(500);
 		//ProcessNode maxval = heapExtractMax();
 		//System.out.print("The max node that was just extracted was: "); maxval.printData();
 		print();
@@ -158,21 +159,28 @@ public class Heap {
 			 System.out.println ("The new priority is less than the current priority of this node which is " + processes.get(index).getPriority() + " please enter a greater number");
 		}
 		
+		//sets priority of the said index to the new greater value
 		processes.get(index).setPriority(increaseTo);
 		
+		
+		//look for if parent is smaller than new child
 		while (index>0 && processes.get(getParent(index)).getPriority()<processes.get(index).getPriority()) {
-			//while the index is greater than 0 and the parent's priority is less that the child's priority
-			//exchange
-			//System.out.println("we are exchanging" + getParent(index) + "," + index);
-			exchange(getParent(index), index); //exchange the parent of the index node, and the index node
-			index = getParent(index); //set the index to the parent's index moving up the tree
+			exchange(getParent(index), index); //exchange the parent & child node
+			index = getParent(index); //keep moving up the heap 
 			
-		}
-		
-	
-		
+		}		
 	}
 	
+	
+	public static void maxHeapInsert(int priority) {
+		//modified
+		setHeapSize(getHeapSize()+1);
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Type name for proccess:  ");
+		processes.add(new ProcessNode(scan.nextLine(), -1000000));
+		scan.close();
+		heapIncreaseKey(getHeapSize()-1,priority);
+	}
 	
 	
 	
