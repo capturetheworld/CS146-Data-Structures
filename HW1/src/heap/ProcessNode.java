@@ -13,13 +13,20 @@ public class ProcessNode {
 	}
 	
 	ProcessNode(){
-		System.out.println("To create a Process Node you must enter a name and priority.");
+		this("foobar", Heap.generateUniqueID());
+		System.out.println("You forgot to create a process with the form: name, priority \n A \"foobar\" process and random priority have been generated ");
+		
+		
+	
 	}
 	
 	int getPriority() {
 		return index;//returns priority index, larger is more Priority
 	}
 	
+	void setPriority(int i) {
+		index=i;//changes the priority index of this node, but keeps process name
+	}
 	String getName() {
 		return name;
 	}
@@ -29,7 +36,7 @@ public class ProcessNode {
 	}
 	
 	void printData() {
-		System.out.println(name + " ········ID:" + index);
+		System.out.println(name + " ········Index:" + index);
 	}
 	
 	
