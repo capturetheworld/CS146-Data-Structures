@@ -3,7 +3,7 @@ package heap;
 public class ProcessNode {
 	private String name;
 	private int index;//priority
-	//private int time;
+	
 	
 	
 	ProcessNode(String n,int i){

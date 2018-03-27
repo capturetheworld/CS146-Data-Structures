@@ -29,6 +29,8 @@ public class Heap {
 		//ProcessNode maxval = heapExtractMax();
 		//System.out.print("The max node that was just extracted was: "); maxval.printData();
 		print();
+		time();
+		print();
 	
 		
 		
@@ -41,6 +43,13 @@ public class Heap {
 			p.printData();
 		}
 		System.out.println("--------------");//prints out a separator
+	
+	}
+	
+	public static void time() {
+		for(ProcessNode p: processes) {
+			p.setPriority(p.getPriority()+1);
+		}
 	
 	}
 	
@@ -176,7 +185,7 @@ public class Heap {
 		//modified
 		setHeapSize(getHeapSize()+1);
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Type name for proccess:  ");
+		System.out.print("Type name for new proccess:  ");
 		processes.add(new ProcessNode(scan.nextLine(), -1000000));
 		scan.close();
 		heapIncreaseKey(getHeapSize()-1,priority);
