@@ -36,7 +36,7 @@ public class ProcessNode {
 	}
 	
 	void printData() {
-		System.out.println(name + " 路路路路路路路路Index:" + index);
+		System.out.println(name + " 贩贩贩贩Index:" + index);
 	}
 	
 	
