@@ -1,4 +1,5 @@
 package hw2;
+import java.util.Scanner;
 
 public class BinTree {
 	
@@ -7,11 +8,83 @@ public class BinTree {
 	
 	
 	 public static void main(String[] args) {
+		
+		 Scanner scan = new Scanner(System.in);
+		 BinTree mainTree = new BinTree();
+		 
+		 
+		 
+		
+		 mainTree.treeInsert(mainTree, new Process("1InternetExplorer",1));
+		 mainTree.treeInsert(mainTree, new Process("2Eclipse",3));
+		 mainTree.treeInsert(mainTree, new Process("3Sketch",15));
+		 mainTree.treeInsert(mainTree, new Process("4Illustrator",40));
+		 mainTree.treeInsert(mainTree, new Process("5Photoshop",75));
+		 mainTree.treeInsert(mainTree, new Process("6OneNote",85));
+		 mainTree.treeInsert(mainTree, new Process("7Word",23));
+		 mainTree.treeInsert(mainTree, new Process("8PowerPoint",38));
+		 mainTree.treeInsert(mainTree, new Process("9Chrome",1000));
+		 mainTree.treeInsert(mainTree, new Process("10Github",47));
+		 mainTree.treeInsert(mainTree, new Process("11Excel",75));
+		 mainTree.treeInsert(mainTree, new Process("12Outlook",23));
+		 mainTree.treeInsert(mainTree, new Process("13Selfcontrol",29));
+		 mainTree.treeInsert(mainTree, new Process("14Snapchat",32));
+		 mainTree.treeInsert(mainTree, new Process("15Twitter",95));
+		 mainTree.treeInsert(mainTree, new Process("16SmartVideohub",87));
+		 mainTree.treeInsert(mainTree, new Process("17ProVideoPlayer",66));
+		 mainTree.treeInsert(mainTree, new Process("18FireFox",98));
+		 mainTree.treeInsert(mainTree, new Process("19Photos",43));
+		 mainTree.treeInsert(mainTree, new Process("20ProPresenter",92));
+		
+		
+		 mainTree.inordertreeWalk(mainTree.root);
+		 System.out.println("\n...Above is a list of existing processes...\n");
+		 int x=0;
+		 while(x<1000) {
+	    System.out.println("Choose an action: \n1. Insert \n\t2. Delete \n\t\t3. Print Sorted List Again\n\t\t\t 4. Quit");
+		 switch (Integer.parseInt(scan.nextLine())) {
+		
+	      case 1:
+	    	
+	    	
+	        System.out.println ( "Enter a name:" );
+	        String str = scan.nextLine();
+	        System.out.println ( "Enter a priority:" );
+	        int prio = Integer.parseInt(scan.nextLine());
+	        mainTree.treeInsert(mainTree, new Process(str,prio));
+	        System.out.println("Insert Complete.");
+	        
+	        break;
+	      case 2:
+	        System.out.println ( "You picked option 2" );
+	        break;
+	      case 3:
+	    	  System.out.println ( "Printing..." );
+		        mainTree.inordertreeWalk(mainTree.root);
+	        System.out.println ( "You picked option 3" );
+	        break;
+	      case 4:
+	    	  System.out.println ( "Quitting..." );
+	    	  x=1000;
+	    	  break;
+	      default:
+	        System.err.println ( "Unrecognized option" );
+	        break;
+	    }
+		 }
 		 
 		 
 	 }
 	 
-	 public static void treeInsert(BinTree T, Process z) {
+	 public void inordertreeWalk(Process x) {
+		 if(x!=null) {
+			 inordertreeWalk(x.getLeft());
+			 x.printData();
+			 inordertreeWalk(x.getRight());
+		 }
+	 }
+	 
+	 public void treeInsert(BinTree T, Process z) {
 		 Process y = null;
 		 Process x = T.root;
 		 while(x!=null) {
@@ -36,14 +109,14 @@ public class BinTree {
 		 }
 	 }
 	 
-	 public static Process treeMinimum(Process x) {
+	 public  Process treeMinimum(Process x) {
 		 while(x.getLeft()!=null) {
 			 x=x.getLeft();
 		 }
 		 return x;
 	 }
 	 
-	 public static void Transplant(BinTree T, Process u, Process v) {
+	 public  void Transplant(BinTree T, Process u, Process v) {
 		 if(u.getParent()==null) {
 			 T.root=v;
 		 }
@@ -58,7 +131,7 @@ public class BinTree {
 		 }
 	 }
 	 
-	 public static void treeDelete(BinTree T, Process z){
+	 public void treeDelete(BinTree T, Process z){
 		 if(z.getLeft()==null) {
 			 Transplant(T,z,z.getRight());
 		 }
