@@ -45,7 +45,7 @@ public class BinTree {
   
   int x = 0;
   while (x < 1000) {
-   System.out.println("\nMain Menu >>>>> Choose an action: \n1. Insert \n\t2. Delete \n\t\t3. Print Sorted List\n\t\t\t 4. Quit " + "\n\t\t\t\t 5. Switch to Hashtable");
+   System.out.println("\n >>>>>  MAIN MENU | CHOOSE AN ACTION  <<<<< \n1. Insert \n\t2. Delete \n\t\t3. Print Sorted List\n\t\t\t 4. Quit " + "\n\t\t\t\t 5. Switch to Hashtable");
    switch (Integer.parseInt(scan.nextLine())) {
 
     case 1:
