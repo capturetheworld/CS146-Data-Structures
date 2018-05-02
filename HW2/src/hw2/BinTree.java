@@ -1,5 +1,8 @@
 package hw2;
 import java.util.Scanner;
+
+
+
 import java.util.LinkedList;
 
 
@@ -20,26 +23,26 @@ public class BinTree {
 
 
 
-  mainTree.treeInsert(mainTree, new Process("1InternetExplorer", 82));
-  mainTree.treeInsert(mainTree, new Process("2Eclipse", 84));
-  mainTree.treeInsert(mainTree, new Process("3Sketch", 73));
-  mainTree.treeInsert(mainTree, new Process("4Illustrator", 4));
-  mainTree.treeInsert(mainTree, new Process("5Photoshop", 75));
-  mainTree.treeInsert(mainTree, new Process("6OneNote", 85));
-  mainTree.treeInsert(mainTree, new Process("7Word", 24));
-  mainTree.treeInsert(mainTree, new Process("8PowerPoint", 38));
-  mainTree.treeInsert(mainTree, new Process("9Chrome", 1000));
-  mainTree.treeInsert(mainTree, new Process("10Github", 47));
-  mainTree.treeInsert(mainTree, new Process("11Excel", 77));
-  mainTree.treeInsert(mainTree, new Process("12Outlook", 23));
-  mainTree.treeInsert(mainTree, new Process("13Selfcontrol", 29));
-  mainTree.treeInsert(mainTree, new Process("14Snapchat", 32));
-  mainTree.treeInsert(mainTree, new Process("15Twitter", 95));
-  mainTree.treeInsert(mainTree, new Process("16SmartVideohub", 87));
-  mainTree.treeInsert(mainTree, new Process("17ProVideoPlayer", 66));
-  mainTree.treeInsert(mainTree, new Process("18FireFox", 98));
-  mainTree.treeInsert(mainTree, new Process("19Photos", 43));
-  mainTree.treeInsert(mainTree, new Process("20ProPresenter", 92));
+  mainTree.treeInsert(mainTree, new Process("1InternetExplorer", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("2Eclipse", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("3Sketch", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("4Illustrator", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("5Photoshop", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("6OneNote", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("7Word", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("8PowerPoint", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("9Chrome", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("10Github", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("11Excel", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("12Outlook", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("13Selfcontrol", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("14Snapchat", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("15Twitter", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("16SmartVideohub", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("17ProVideoPlayer", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("18FireFox", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("19Photos", mainTree.generatePriority(mainTree)));
+  mainTree.treeInsert(mainTree, new Process("20ProPresenter", mainTree.generatePriority(mainTree)));
 
 
   
@@ -104,9 +107,33 @@ public class BinTree {
    }
   }
 
+ 
+ 
+//Inserts Process into BST, maintains the BST structure takes in a BST and a Process
+ public void treeInsert(BinTree T, Process z) {
+  Process y = null;
+  Process x = T.root;
+  while (x != null) {
+   y = x;
+   if (z.getPriority() < x.getPriority()) {//compares priority
+    x = x.getLeft();
+   } else {
+    x = x.getRight();
+   }
+   z.setParent(y);//setsParent
+
+  }
+  if (y == null) {
+   T.root = z;
+  } else if (z.getPriority() < y.getPriority()) {
+   y.setLeft(z);
+  } else {
+   y.setRight(z);//setsChild
+  }
+ }
 
   
-
+//searches for the process comparing (starting at root first) with the key
   public Process search(Process compare, int key) {
    if (compare == null)
     return null;
@@ -120,7 +147,7 @@ public class BinTree {
 
 
   }
-
+//prints out (in order) the processes
   public void inordertreeWalk(Process x) {
    if (x != null) {
     inordertreeWalk(x.getLeft());
@@ -128,7 +155,26 @@ public class BinTree {
     inordertreeWalk(x.getRight());
    }
   }
+  //generates a random unique priority
+  public int generatePriority(BinTree T) {
+	  boolean found = false;
+	  double value = 0;
+	  int valueInt = 0;
+	  while (!found) {
+	   value = Math.random() * 100;
+	   valueInt = (int) value;
+	   found = true;
 
+	   
+	    if ((search(T.root, valueInt)!=null)) {
+	     found = false;
+	    }
+	   }
+	  
+	  return valueInt; //returns the random value
+	 }
+  
+//Adds all Process to hashTable List
   public void addalltoList(Process x) {
    if (x != null) {
 	   addalltoList(x.getLeft());
@@ -141,32 +187,15 @@ public class BinTree {
    }
   }
   
+  //sends hashTable
   public  LinkedList<Process>[] gethashTable(BinTree T){
 	  return hashTable;
   }
-
-  public void treeInsert(BinTree T, Process z) {
-   Process y = null;
-   Process x = T.root;
-   while (x != null) {
-    y = x;
-    if (z.getPriority() < x.getPriority()) {
-     x = x.getLeft();
-    } else {
-     x = x.getRight();
-    }
-    z.setParent(y);
-
-   }
-   if (y == null) {
-    T.root = z;
-   } else if (z.getPriority() < y.getPriority()) {
-    y.setLeft(z);
-   } else {
-    y.setRight(z);
-   }
-  }
-
+  
+  
+  
+  
+//finds the minimum of the given tree, usually starts with root node
   public Process treeMinimum(Process x) {
    while (x.getLeft() != null) {
     x = x.getLeft();
@@ -174,6 +203,7 @@ public class BinTree {
    return x;
   }
 
+  //transplants the tree and all of its child nodes with another tree and its child nodes
   public void Transplant(BinTree T, Process u, Process v) {
    if (u.getParent() == null) {
     T.root = v;
@@ -187,6 +217,7 @@ public class BinTree {
    }
   }
 
+  //deletes the subtree at a specific node and all the children using the transplant method
   public void treeDelete(BinTree T, Process z) {
    if (z.getLeft() == null) {
     Transplant(T, z, z.getRight());

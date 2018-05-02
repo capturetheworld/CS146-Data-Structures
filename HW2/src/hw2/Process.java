@@ -68,7 +68,7 @@ class Process {
 		}
 	
 	void printData() {
-		System.out.println(name + " ········Index:" + key);
+		System.out.println(name + " ········Priority:" + key);
 	}
 	
 	
